@@ -38,5 +38,25 @@ namespace BookStoreBackEnd.Controllers
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
+        [HttpPost("Login")]
+        public IActionResult UserLogin(UserLoginModel userLogin)
+        {
+            try
+            {
+                var login = this.userBL.UserLogin(userLogin.Email, userLogin.Password);
+                if (login != null)
+                {
+                    return this.Ok(new { Success = true, message = " Sucessfull Login -Token", Response = login });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = " Unsuccessfull Login" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
     }
 }

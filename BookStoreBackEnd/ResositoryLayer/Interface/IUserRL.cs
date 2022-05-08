@@ -8,6 +8,7 @@ namespace ResositoryLayer.Interface
     public interface IUserRL
     {
         public UserRegistrationModel UserRegister(UserRegistrationModel userRegistration);
+        public string UserLogin(string email, string password);
 
     }
 }
