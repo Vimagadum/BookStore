@@ -44,3 +44,31 @@ begin
         and
         Password=@Password
 end;
+
+create or alter proc spUserForgotPassword
+(
+	@Email varchar(Max)
+)
+as
+begin
+	update UsersRegistration
+	set 
+		Password ='Null'
+	where 
+		Email = @Email;
+    select * from UsersRegistration where Email = @Email;
+end;
+
+create proc spUserResetPassword
+(
+	@Email varchar(Max),
+	@Password varchar(Max)
+)
+AS
+BEGIN
+	update UsersRegistration 
+	SET 
+		Password = @Password 
+	where
+		Email = @Email;
+end;
