@@ -28,6 +28,18 @@ namespace BusinessLayer.Service
             }
         }
 
+        public List<UpdateBookModel> GetAllBooks()
+        {
+            try
+            {
+                return this.BookRL.GetAllBooks();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public UpdateBookModel GetBookByBookId(int bookId)
         {
             try

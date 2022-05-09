@@ -95,5 +95,25 @@ namespace BookStoreBackEnd.Controllers
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
+        [HttpGet("Get")]
+        public IActionResult GetAllBooks()
+        {
+            try
+            {
+                var allbooks = this.bookBL.GetAllBooks();
+                if (allbooks != null)
+                {
+                    return this.Ok(new { Success = true, message = "All Book Details Fetched Sucessfully", Response = allbooks });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "Unsuccessfull Display the Books" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
     }
 }

@@ -65,3 +65,21 @@ BookImage=@BookImage,
 BookQuantity=@BookQuantity
 where BookId=@BookId			
 end;
+
+---Getting Book By Book Id Store Procedure---
+create proc spGetBookById
+(
+@BookId int
+)
+as 
+begin
+select * from Book where BookId=@BookId
+end;
+
+
+-----Get All Books -----
+create proc spGetAllBooks
+as 
+begin
+select * from Book
+end;
