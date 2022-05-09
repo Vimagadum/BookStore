@@ -54,5 +54,26 @@ namespace BookStoreBackEnd.Controllers
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
+
+        [HttpPut("Update")]
+        public IActionResult UpdateBookDetails(UpdateBookModel updateBookModel)
+        {
+            try
+            {
+                var Book = this.bookBL.UpdateBookDetails(updateBookModel);
+                if (Book != null)
+                {
+                    return this.Ok(new { Success = true, message = "Book Deatials Updated successfully", Response = Book });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "Error! failed to update Books" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
     }
 }

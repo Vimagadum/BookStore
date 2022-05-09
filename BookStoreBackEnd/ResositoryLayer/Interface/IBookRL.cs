@@ -8,5 +8,6 @@ namespace ResositoryLayer.Interface
     public interface IBookRL
     {
         public AddBookModel AddBook(AddBookModel addBook);
+        public UpdateBookModel UpdateBookDetails(UpdateBookModel updateBookModel);
     }
 }

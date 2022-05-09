@@ -59,5 +59,48 @@ namespace ResositoryLayer.Service
                 sqlConnection.Close();
             }
         }
+        public UpdateBookModel UpdateBookDetails(UpdateBookModel updateBookModel)
+        {
+            sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStoreDataBase"]);
+
+            try
+            {
+                using (sqlConnection)
+                {
+                    SqlCommand cmd = new SqlCommand("spUpdateBook", sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@BookId", updateBookModel.BookId);
+                    cmd.Parameters.AddWithValue("@BookName", updateBookModel.BookName);
+                    cmd.Parameters.AddWithValue("@AuthorName", updateBookModel.AuthorName);
+                    cmd.Parameters.AddWithValue("@Rating", updateBookModel.Rating);
+                    cmd.Parameters.AddWithValue("@RatingCount", updateBookModel.RatingCount);
+                    cmd.Parameters.AddWithValue("@DiscountPrice", updateBookModel.DiscountPrice);
+                    cmd.Parameters.AddWithValue("@ActualPrice", updateBookModel.ActualPrice);
+                    cmd.Parameters.AddWithValue("@Description", updateBookModel.Description);
+                    cmd.Parameters.AddWithValue("@BookImage", updateBookModel.BookImage);
+                    cmd.Parameters.AddWithValue("@BookQuantity", updateBookModel.BookQuantity);
+                    sqlConnection.Open();
+                    int i = cmd.ExecuteNonQuery();
+                    sqlConnection.Close();
+                    if (i >= 1)
+                    {
+                        return updateBookModel;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
+
     }
 }

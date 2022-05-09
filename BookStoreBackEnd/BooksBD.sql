@@ -37,3 +37,31 @@ begin
 insert into Book (BookName,AuthorName,Rating,RatingCount,DiscountPrice,ActualPrice,Description,BookImage,BookQuantity)
 values(@BookName,@AuthorName,@Rating,@RatingCount,@DiscountPrice,@ActualPrice,@Description,@BookImage,@BookQuantity);
 end;
+
+create proc spUpdateBook
+(
+@BookId int,
+@BookName varchar(max),
+@AuthorName varchar(250),
+@Rating int,
+@RatingCount int,
+@DiscountPrice int,
+@ActualPrice int,
+@Description varchar(max),
+@BookImage varchar(250),
+@BookQuantity int
+)
+as
+begin
+update Book set 
+BookName=@BookName,
+AuthorName=@AuthorName,
+Rating=@Rating,
+RatingCount=@RatingCount,
+DiscountPrice=@DiscountPrice,
+ActualPrice=@ActualPrice,
+Description=@Description,
+BookImage=@BookImage,
+BookQuantity=@BookQuantity
+where BookId=@BookId			
+end;
