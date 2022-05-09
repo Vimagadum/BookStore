@@ -101,6 +101,52 @@ namespace ResositoryLayer.Service
                 sqlConnection.Close();
             }
         }
+        public UpdateBookModel GetBookByBookId(int bookId)
+        {
+            sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStoreDataBase"]);
 
+            try
+            {
+                using (sqlConnection)
+                {
+                    SqlCommand cmd = new SqlCommand("spGetBookById", sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@BookId", bookId);
+                    sqlConnection.Open();
+                    UpdateBookModel bookModel = new UpdateBookModel();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            bookModel.BookId = Convert.ToInt32(reader["BookId"]);
+                            bookModel.BookName = reader["BookName"].ToString();
+                            bookModel.AuthorName = reader["AuthorName"].ToString();
+                            bookModel.Rating = Convert.ToInt32(reader["Rating"]);
+                            bookModel.RatingCount = Convert.ToInt32(reader["RatingCount"]);
+                            bookModel.DiscountPrice = Convert.ToInt32(reader["DiscountPrice"]);
+                            bookModel.ActualPrice = Convert.ToInt32(reader["ActualPrice"]);
+                            bookModel.Description = reader["Description"].ToString();
+                            bookModel.BookImage = reader["BookImage"].ToString();
+                            bookModel.BookQuantity = Convert.ToInt32(reader["BookQuantity"]);
+                        }
+                        sqlConnection.Close();
+                        return bookModel;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
     }
 }

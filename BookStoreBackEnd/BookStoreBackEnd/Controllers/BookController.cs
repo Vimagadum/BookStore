@@ -75,5 +75,25 @@ namespace BookStoreBackEnd.Controllers
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
+        [HttpGet("Get/{bookId}")]
+        public IActionResult GetBookByBookId(int bookId)
+        {
+            try
+            {
+                var book = this.bookBL.GetBookByBookId(bookId);
+                if (book != null)
+                {
+                    return this.Ok(new { Success = true, message = "Successfully Books are displayed", Response = book });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = " Unsuccessfull Display the Books Enter Book Id again!!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
     }
 }
