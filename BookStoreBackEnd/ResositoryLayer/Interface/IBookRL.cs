@@ -11,5 +11,6 @@ namespace ResositoryLayer.Interface
         public UpdateBookModel UpdateBookDetails(UpdateBookModel updateBookModel);
         public UpdateBookModel GetBookByBookId(int bookId);
         public List<UpdateBookModel> GetAllBooks();
+        public bool DeleteBook(int bookId);
     }
 }

@@ -83,3 +83,13 @@ as
 begin
 select * from Book
 end;
+
+-----For Deleting Book Store Procedure--------
+create proc spDeleteBook
+(
+@BookId int
+)
+as
+begin
+delete from Book Where BookId=@BookId
+end;

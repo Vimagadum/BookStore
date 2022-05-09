@@ -115,5 +115,25 @@ namespace BookStoreBackEnd.Controllers
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
+        [HttpDelete("Delete")]
+        public IActionResult DeleteBook(int bookId)
+        {
+            try
+            {
+                if (this.bookBL.DeleteBook(bookId))
+                {
+                    return this.Ok(new { Success = true, message = "Book Deleted Sucessfully" });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "failed to Delete Book Enter BOOk ID Again" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
+
     }
 }
