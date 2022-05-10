@@ -86,3 +86,16 @@ begin
 	where 
 		AddressId=@AddressId and UserId=@UserId;
 end;
+
+create Proc GetAllAddresses
+(
+	@UserId int
+)
+as
+begin
+	select Address, City, State, a.UserId, b.TypeId
+	from Address a
+    Inner join AddressType b on b.TypeId = a.TypeId 
+	where 
+	UserId = @UserId;
+end;

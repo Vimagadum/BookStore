@@ -124,5 +124,50 @@ namespace ResositoryLayer.Service
                 sqlConnection.Close();
             }
         }
+        public List<AddressModel> GetAllAddresses(int user_Id)
+        {
+            sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStoreDataBase"]);
+            try
+            {
+                using (sqlConnection)
+                {
+                    SqlCommand cmd = new SqlCommand("GetAllAddresses", sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@UserId", user_Id);
+                    sqlConnection.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        List<AddressModel> addressModel = new List<AddressModel>();
+                        while (reader.Read())
+                        {
+                            addressModel.Add(new AddressModel
+                            {
+                                Address = reader["Address"].ToString(),
+                                City = reader["City"].ToString(),
+                                State = reader["State"].ToString(),
+                                TypeId = Convert.ToInt32(reader["TypeId"]),
+                                UserId = Convert.ToInt32(reader["UserId"])
+                            });
+                        }
+
+                        sqlConnection.Close();
+                        return addressModel;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
     }
 }

@@ -81,5 +81,26 @@ namespace BookStoreBackEnd.Controllers
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
+        [HttpGet("Get")]
+        public IActionResult GetAllAddresses()
+        {
+            try
+            {
+                var userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "Id").Value);
+                var addresses = this.addressBL.GetAllAddresses(userId);
+                if (addresses != null)
+                {
+                    return this.Ok(new { Status = true, Message = " Successfully All Address Fetched and Displayed", Response = addresses });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "failed to fetcch address" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
     }
 }
