@@ -61,5 +61,26 @@ namespace BookStoreBackEnd.Controllers
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
+        [HttpPut("Update/{cart_Id}")]
+        public IActionResult UpdateCart(int cart_Id, CartModel cartModel)
+        {
+            try
+            {
+                int userId = Convert.ToInt32(User.Claims.FirstOrDefault(a => a.Type == "Id").Value);
+                var cart = this.cartBL.UpdateCart(cart_Id, cartModel, userId);
+                if (cart != null)
+                {
+                    return this.Ok(new { Success = true, message = "Cart Updated successfully", Response = cart });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "failed to update cart" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
     }
 }

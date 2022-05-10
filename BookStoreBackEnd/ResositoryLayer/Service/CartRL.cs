@@ -105,5 +105,41 @@ namespace ResositoryLayer.Service
                 sqlConnection.Close();
             }
         }
+        //Update cart
+        public CartModel UpdateCart(int cartId, CartModel cartModel, int userId)
+        {
+            sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStoreDataBase"]);
+            try
+            {
+                using (sqlConnection)
+                {
+                    SqlCommand cmd = new SqlCommand("UpdateCart", sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@OrderQuantity", cartModel.OrderQuantity);
+                    cmd.Parameters.AddWithValue("@BookId", cartModel.BookId);
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+                    cmd.Parameters.AddWithValue("@CartId", cartId);
+                    sqlConnection.Open();
+                    int i = cmd.ExecuteNonQuery();
+                    sqlConnection.Close();
+                    if (i >= 1)
+                    {
+                        return cartModel;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
     }
 }
