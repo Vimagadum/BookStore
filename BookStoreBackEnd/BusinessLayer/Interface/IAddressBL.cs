@@ -9,6 +9,7 @@ namespace BusinessLayer.Interface
     public interface IAddressBL
     {
         public string AddAddress(AddressModel addressModel, int user_Id);
+        public AddressModel UpdateAddress(AddressModel addressModel, int address_Id, int user_Id);
 
     }
 }

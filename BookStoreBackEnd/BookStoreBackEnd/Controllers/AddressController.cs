@@ -40,5 +40,26 @@ namespace BookStoreBackEnd.Controllers
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
+        [HttpPut("Update/{addressId}")]
+        public IActionResult UpdateAddress(AddressModel addressModel, int addressId)
+        {
+            try
+            {
+                var userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "Id").Value);
+                var address = this.addressBL.UpdateAddress(addressModel, addressId, userId);
+                if (address != null)
+                {
+                    return this.Ok(new { Status = true, Message = " Successfully Address Updated", Response = address });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "failed to update address" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
     }
 }

@@ -47,3 +47,30 @@ BEGIN
 			select 2
 		end
 end;
+
+
+create proc UpdateAddress
+(
+	@AddressId int,
+	@Address varchar(max),
+	@City varchar(100),
+	@State varchar(100),
+	@TypeId int,
+	@UserId int
+)
+as
+BEGIN
+	If exists(select * from AddressType where TypeId = @TypeId)
+		begin
+			Update Address set
+			Address = @Address, City = @City,
+			State = @State, TypeId = @TypeId,
+			UserId = @UserId
+			where
+				AddressId = @AddressId
+		end
+	Else
+		begin
+			select 2
+		end
+end;

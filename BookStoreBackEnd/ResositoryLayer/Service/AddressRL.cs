@@ -54,5 +54,42 @@ namespace ResositoryLayer.Service
                 sqlConnection.Close();
             }
         }
+        public AddressModel UpdateAddress(AddressModel addressModel, int address_Id, int user_Id)
+        {
+            sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStoreDataBase"]);
+            try
+            {
+                using (sqlConnection)
+                {
+                    SqlCommand cmd = new SqlCommand("UpdateAddress", sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Address", addressModel.Address);
+                    cmd.Parameters.AddWithValue("@City", addressModel.City);
+                    cmd.Parameters.AddWithValue("@State", addressModel.State);
+                    cmd.Parameters.AddWithValue("@TypeId", addressModel.TypeId);
+                    cmd.Parameters.AddWithValue("@AddressId", address_Id);
+                    cmd.Parameters.AddWithValue("@UserId", user_Id);
+                    sqlConnection.Open();
+                    int i = cmd.ExecuteNonQuery();
+                    sqlConnection.Close();
+                    if (i >= 1)
+                    {
+                        return addressModel;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
     }
 }

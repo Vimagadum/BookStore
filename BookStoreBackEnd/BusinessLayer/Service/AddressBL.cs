@@ -26,5 +26,18 @@ namespace BusinessLayer.Service
                 throw;
             }
         }
+
+        public AddressModel UpdateAddress(AddressModel addressModel, int address_Id, int user_Id)
+        {
+            try
+            {
+                return addressRL.UpdateAddress(addressModel, address_Id, user_Id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
