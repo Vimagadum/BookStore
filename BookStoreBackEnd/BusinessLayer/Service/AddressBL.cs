@@ -27,6 +27,19 @@ namespace BusinessLayer.Service
             }
         }
 
+        public bool DeleteAddress(int address_Id, int user_Id)
+        {
+            try
+            {
+                return addressRL.DeleteAddress(address_Id, user_Id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public AddressModel UpdateAddress(AddressModel addressModel, int address_Id, int user_Id)
         {
             try

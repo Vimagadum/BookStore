@@ -74,3 +74,15 @@ BEGIN
 			select 2
 		end
 end;
+
+create Proc DeleteAddress
+(
+	@AddressId int,
+	@UserId int
+)
+as
+begin
+	Delete Address
+	where 
+		AddressId=@AddressId and UserId=@UserId;
+end;

@@ -61,5 +61,25 @@ namespace BookStoreBackEnd.Controllers
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
+        [HttpDelete("Delete/{address_Id}")]
+        public IActionResult DeleteAddress(int address_Id)
+        {
+            try
+            {
+                var userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "Id").Value);
+                if (this.addressBL.DeleteAddress(address_Id, userId))
+                {
+                    return this.Ok(new { Status = true, Message = "Address Deleted Successfully" });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "failed to delete address" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
     }
 }
