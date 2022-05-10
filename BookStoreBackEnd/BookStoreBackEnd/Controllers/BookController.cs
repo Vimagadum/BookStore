@@ -15,18 +15,7 @@ namespace BookStoreBackEnd.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        //private readonly IMemoryCache memoryCache;
-
-        ////private readonly IDistributedCache distributedCache;
-
-        //private readonly IBookBL bookBL;
-
-        //public BookController(IBookBL bookBL, IMemoryCache memoryCache)
-        //{
-        //    this.bookBL = bookBL;
-        //    this.memoryCache = memoryCache;
-
-        //}
+        
         private readonly IBookBL bookBL;
         public BookController(IBookBL bookBL)
         {
