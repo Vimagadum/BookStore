@@ -28,6 +28,18 @@ namespace BusinessLayer.Service
             }
         }
 
+        public bool DeleteCart(int cartId, int userId)
+        {
+            try
+            {
+                return this.CartRL.DeleteCart(cartId, userId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public List<DisplayCartModel> GetCartDetailsByUserid(int userId)
         {
             try

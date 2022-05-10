@@ -33,13 +33,40 @@ end;
 
 ------GetCart bY USErid Stored Procedure-----
 
-create proc spGetCartByUserId
+create or alter proc spGetCartByUserId
 (
 	@UserId int
 )
 as
 begin
 	select CartId,OrderQuantity,UserId,c.BookId,BookName,AuthorName,
-	DiscountPrice,ActualPrice,BookImage from Carts c join Book b on c.BookId=b.BookId 
+	DiscountPrice,ActualPrice,BookImage from CartsTable c join Book b on c.BookId=b.BookId 
 	where UserId=@UserId;
+end;
+
+create proc UpdateCart
+(
+	@OrderQuantity int,
+	@BookId int,
+	@UserId int,
+	@CartId int
+)
+as
+begin
+update CartsTable set BookId=@BookId,
+				UserId=@UserId,
+				OrderQuantity=@OrderQuantity
+				where CartId=@CartId;
+end;
+
+
+create proc DeleteCart
+(
+	@CartId int,
+	@UserId int
+)
+as
+begin
+delete CartsTable where
+		CartId=@CartId and UserId=@UserId;
 end;

@@ -82,5 +82,26 @@ namespace BookStoreBackEnd.Controllers
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
+        [HttpDelete("Delete/{cart_Id}")]
+        public IActionResult DeletCart(int cart_Id)
+        {
+            try
+            {
+                int userId = Convert.ToInt32(User.Claims.FirstOrDefault(a => a.Type == "Id").Value);
+                if (this.cartBL.DeleteCart(cart_Id, userId))
+
+                {
+                    return this.Ok(new { Success = true, message = "Cart Deleted Sucessfully" });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "failed dto delete cart" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
     }
 }
