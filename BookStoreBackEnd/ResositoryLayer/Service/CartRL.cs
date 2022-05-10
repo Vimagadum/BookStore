@@ -53,5 +53,57 @@ namespace ResositoryLayer.Service
                 sqlConnection.Close();
             }
         }
+        //get cart by userid and cartid 
+        public List<DisplayCartModel> GetCartDetailsByUserid(int userId)
+        {
+            sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStoreDataBase"]);
+            try
+            {
+                using (sqlConnection)
+                {
+                    SqlCommand cmd = new SqlCommand("spGetCartByUserId", sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+                    sqlConnection.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        List<DisplayCartModel> cartmodel = new List<DisplayCartModel>();
+                        while (reader.Read())
+                        {
+                            BookModel bookModel = new BookModel();
+                            DisplayCartModel cartModel = new DisplayCartModel();
+
+                            bookModel.BookName = reader["BookName"].ToString();
+                            bookModel.AuthorName = reader["AuthorName"].ToString();
+                            bookModel.ActualPrice = Convert.ToInt32(reader["ActualPrice"]);
+                            bookModel.DiscountPrice = Convert.ToInt32(reader["DiscountPrice"]);
+                            bookModel.BookImage = reader["BookImage"].ToString();
+                            cartModel.UserId = Convert.ToInt32(reader["UserId"]);
+                            cartModel.BookId = Convert.ToInt32(reader["BookId"]);
+                            cartModel.CartId = Convert.ToInt32(reader["CartId"]);
+                            cartModel.OrderQuantity = Convert.ToInt32(reader["OrderQuantity"]);
+                            cartModel.Bookmodel = bookModel;
+                            cartmodel.Add(cartModel);
+                        }
+
+                        sqlConnection.Close();
+                        return cartmodel;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
     }
 }

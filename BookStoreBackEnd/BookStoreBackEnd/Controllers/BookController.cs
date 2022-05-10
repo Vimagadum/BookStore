@@ -45,11 +45,11 @@ namespace BookStoreBackEnd.Controllers
         }
 
         [HttpPut("Update")]
-        public IActionResult UpdateBookDetails(UpdateBookModel updateBookModel)
+        public IActionResult UpdateBookDetails(int book_id, UpdateBookModel updateBookModel)
         {
             try
             {
-                var Book = this.bookBL.UpdateBookDetails(updateBookModel);
+                var Book = this.bookBL.UpdateBookDetails(book_id, updateBookModel);
                 if (Book != null)
                 {
                     return this.Ok(new { Success = true, message = "Book Deatials Updated successfully", Response = Book });

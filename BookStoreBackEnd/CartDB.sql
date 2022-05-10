@@ -30,3 +30,16 @@ begin
 		select 1
 		end
 end;
+
+------GetCart bY USErid Stored Procedure-----
+
+create proc spGetCartByUserId
+(
+	@UserId int
+)
+as
+begin
+	select CartId,OrderQuantity,UserId,c.BookId,BookName,AuthorName,
+	DiscountPrice,ActualPrice,BookImage from Carts c join Book b on c.BookId=b.BookId 
+	where UserId=@UserId;
+end;

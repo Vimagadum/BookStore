@@ -4,8 +4,9 @@ using System.Text;
 
 namespace CommonLayer.Model
 {
-    public class UpdateBookModel
+    public class BookModel
     {
+        public int BookId { get; set; }
         public string BookName { get; set; }
         public string AuthorName { get; set; }
         public int Rating { get; set; }

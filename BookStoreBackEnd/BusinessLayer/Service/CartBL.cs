@@ -27,5 +27,17 @@ namespace BusinessLayer.Service
                 throw;
             }
         }
+
+        public List<DisplayCartModel> GetCartDetailsByUserid(int userId)
+        {
+            try
+            {
+                return this.CartRL.GetCartDetailsByUserid(userId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

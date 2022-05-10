@@ -8,5 +8,6 @@ namespace BusinessLayer.Interface
     public interface ICartBL
     {
         public CartModel AddBookToCart(CartModel cartModel, int userId);
+        public List<DisplayCartModel> GetCartDetailsByUserid(int userId);
     }
 }

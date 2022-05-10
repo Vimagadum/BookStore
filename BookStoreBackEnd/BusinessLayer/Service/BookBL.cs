@@ -40,7 +40,7 @@ namespace BusinessLayer.Service
             }
         }
 
-        public List<UpdateBookModel> GetAllBooks()
+        public List<BookModel> GetAllBooks()
         {
             try
             {
@@ -52,7 +52,7 @@ namespace BusinessLayer.Service
             }
         }
 
-        public UpdateBookModel GetBookByBookId(int bookId)
+        public BookModel GetBookByBookId(int bookId)
         {
             try
             {
@@ -64,11 +64,11 @@ namespace BusinessLayer.Service
             }
         }
 
-        public UpdateBookModel UpdateBookDetails(UpdateBookModel updateBookModel)
+        public UpdateBookModel UpdateBookDetails(int book_id, UpdateBookModel updateBookModel)
         {
             try
             {
-                return this.BookRL.UpdateBookDetails(updateBookModel);
+                return this.BookRL.UpdateBookDetails(book_id, updateBookModel);
             }
             catch (Exception)
             {

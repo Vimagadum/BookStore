@@ -8,5 +8,6 @@ namespace ResositoryLayer.Interface
     public interface ICartRL
     {
         public CartModel AddBookToCart(CartModel cartModel, int userId);
+        public List<DisplayCartModel> GetCartDetailsByUserid(int userId);
     }
 }

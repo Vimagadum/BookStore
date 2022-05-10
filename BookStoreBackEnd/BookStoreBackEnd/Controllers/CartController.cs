@@ -40,5 +40,26 @@ namespace BookStoreBackEnd.Controllers
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
+        [HttpGet("Get")]
+        public IActionResult GetCartDetailsByUserid()
+        {
+            try
+            {
+                int userId = Convert.ToInt32(User.Claims.FirstOrDefault(a => a.Type == "Id").Value);
+                var cartdetails = this.cartBL.GetCartDetailsByUserid(userId);
+                if (cartdetails != null)
+                {
+                    return this.Ok(new { Success = true, message = "cart Details Fetched successfully", Response = cartdetails });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "failed to fetch cart details" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
     }
 }

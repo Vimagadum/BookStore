@@ -59,7 +59,7 @@ namespace ResositoryLayer.Service
                 sqlConnection.Close();
             }
         }
-        public UpdateBookModel UpdateBookDetails(UpdateBookModel updateBookModel)
+        public UpdateBookModel UpdateBookDetails(int book_id,UpdateBookModel updateBookModel)
         {
             sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStoreDataBase"]);
 
@@ -69,7 +69,7 @@ namespace ResositoryLayer.Service
                 {
                     SqlCommand cmd = new SqlCommand("spUpdateBook", sqlConnection);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@BookId", updateBookModel.BookId);
+                    cmd.Parameters.AddWithValue("@BookId", book_id);
                     cmd.Parameters.AddWithValue("@BookName", updateBookModel.BookName);
                     cmd.Parameters.AddWithValue("@AuthorName", updateBookModel.AuthorName);
                     cmd.Parameters.AddWithValue("@Rating", updateBookModel.Rating);
@@ -101,7 +101,7 @@ namespace ResositoryLayer.Service
                 sqlConnection.Close();
             }
         }
-        public UpdateBookModel GetBookByBookId(int bookId)
+        public BookModel GetBookByBookId(int bookId)
         {
             sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStoreDataBase"]);
 
@@ -113,7 +113,7 @@ namespace ResositoryLayer.Service
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@BookId", bookId);
                     sqlConnection.Open();
-                    UpdateBookModel bookModel = new UpdateBookModel();
+                    BookModel bookModel = new BookModel();
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -148,9 +148,9 @@ namespace ResositoryLayer.Service
                 sqlConnection.Close();
             }
         }
-        public List<UpdateBookModel> GetAllBooks()
+        public List<BookModel> GetAllBooks()
         {
-            List<UpdateBookModel> bookModel = new List<UpdateBookModel>();
+            List<BookModel> bookModel = new List<BookModel>();
             sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStoreDataBase"]);
 
             try
@@ -165,7 +165,7 @@ namespace ResositoryLayer.Service
                     {
                         while (reader.Read())
                         {
-                            bookModel.Add(new UpdateBookModel
+                            bookModel.Add(new BookModel
                             {
                                 BookId = Convert.ToInt32(reader["BookId"]),
                                 BookName = reader["BookName"].ToString(),

@@ -8,9 +8,9 @@ namespace ResositoryLayer.Interface
     public interface IBookRL
     {
         public AddBookModel AddBook(AddBookModel addBook);
-        public UpdateBookModel UpdateBookDetails(UpdateBookModel updateBookModel);
-        public UpdateBookModel GetBookByBookId(int bookId);
-        public List<UpdateBookModel> GetAllBooks();
+        public UpdateBookModel UpdateBookDetails(int book_id, UpdateBookModel updateBookModel);
+        public BookModel GetBookByBookId(int bookId);
+        public List<BookModel> GetAllBooks();
         public bool DeleteBook(int bookId);
     }
 }
